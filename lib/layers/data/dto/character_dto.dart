@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:rickmorty/layers/data/dto/location_dto.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/data/dto/location_dto.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
 
 class CharacterDto extends Character {
   CharacterDto({

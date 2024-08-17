@@ -1,4 +1,4 @@
-package com.example.rickmorty
+package com.example.watchdice
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,7 +1,7 @@
-import 'package:rickmorty/layers/data/source/local/local_storage.dart';
-import 'package:rickmorty/layers/data/source/network/api.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/domain/repository/character_repository.dart';
+import 'package:watchdice/layers/data/source/local/local_storage.dart';
+import 'package:watchdice/layers/data/source/network/api.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/repository/character_repository.dart';
 
 class CharacterRepositoryImpl implements CharacterRepository {
   final Api _api;

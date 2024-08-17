@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 part 'character_page_event.dart';

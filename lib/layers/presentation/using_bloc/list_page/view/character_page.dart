@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_header.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_loading.dart';
-import 'package:rickmorty/layers/presentation/using_bloc/details_page/view/character_details_page.dart';
-import 'package:rickmorty/layers/presentation/using_bloc/list_page/bloc/character_page_bloc.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_header.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_loading.dart';
+import 'package:watchdice/layers/presentation/using_bloc/details_page/view/character_details_page.dart';
+import 'package:watchdice/layers/presentation/using_bloc/list_page/bloc/character_page_bloc.dart';
 
 // -----------------------------------------------------------------------------
 // Page

@@ -1,6 +1,6 @@
 {
-    "name": "rickmorty",
-    "short_name": "rickmorty",
+    "name": "watchdice",
+    "short_name": "watchdice",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

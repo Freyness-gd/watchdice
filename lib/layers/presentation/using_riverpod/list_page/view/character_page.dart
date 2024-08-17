@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_header.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_loading.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/details_page/view/details_page.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/list_page/notifier/character_page_state.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/list_page/notifier/character_state_notifier.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_header.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_loading.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/details_page/view/details_page.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/list_page/notifier/character_page_state.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/list_page/notifier/character_state_notifier.dart';
 
 // -----------------------------------------------------------------------------
 // Page

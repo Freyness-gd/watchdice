@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/list_page/view/character_page.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/list_page/view/character_page.dart';
 
 class AppUsingRiverpod extends StatelessWidget {
   const AppUsingRiverpod({super.key});

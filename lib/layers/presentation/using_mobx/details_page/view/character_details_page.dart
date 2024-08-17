@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/presentation/using_mobx/details_page/store/character_details_page_store.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/presentation/using_mobx/details_page/store/character_details_page_store.dart';
 
 // -----------------------------------------------------------------------------
 // Page

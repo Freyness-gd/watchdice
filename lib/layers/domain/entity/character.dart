@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rickmorty/layers/domain/entity/location.dart';
+import 'package:watchdice/layers/domain/entity/location.dart';
 
 class Character with EquatableMixin {
   Character({

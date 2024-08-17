@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
 
 part 'character_details_page_store.g.dart';
 

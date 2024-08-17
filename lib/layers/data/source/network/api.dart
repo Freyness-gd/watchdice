@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:rickmorty/layers/data/dto/character_dto.dart';
+import 'package:watchdice/layers/data/dto/character_dto.dart';
 
 abstract class Api {
   Future<List<CharacterDto>> loadCharacters({int page = 0});

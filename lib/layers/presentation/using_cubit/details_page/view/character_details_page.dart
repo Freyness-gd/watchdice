@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/presentation/using_cubit/details_page/cubit/character_details_cubit.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/presentation/using_cubit/details_page/cubit/character_details_cubit.dart';
 
 // -----------------------------------------------------------------------------
 // Page

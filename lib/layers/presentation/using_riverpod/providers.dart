@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rickmorty/layers/data/character_repository_impl.dart';
-import 'package:rickmorty/layers/data/source/local/local_storage.dart';
-import 'package:rickmorty/layers/data/source/network/api.dart';
-import 'package:rickmorty/layers/domain/repository/character_repository.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
-import 'package:rickmorty/main.dart';
+import 'package:watchdice/layers/data/character_repository_impl.dart';
+import 'package:watchdice/layers/data/source/local/local_storage.dart';
+import 'package:watchdice/layers/data/source/network/api.dart';
+import 'package:watchdice/layers/domain/repository/character_repository.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/main.dart';
 
 // -----------------------------------------------------------------------------
 // Presentation

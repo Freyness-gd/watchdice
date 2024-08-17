@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:rickmorty/layers/domain/entity/location.dart';
+import 'package:watchdice/layers/domain/entity/location.dart';
 
 class LocationDto extends Location {
   LocationDto({

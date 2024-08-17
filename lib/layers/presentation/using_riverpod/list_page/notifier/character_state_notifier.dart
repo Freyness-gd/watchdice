@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/list_page/notifier/character_page_state.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/providers.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/list_page/notifier/character_page_state.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/providers.dart';
 
 final characterPageStateProvider =
     StateNotifierProvider<CharacterStateNotifier, CharacterPageState>(

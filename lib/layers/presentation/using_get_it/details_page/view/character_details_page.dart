@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/presentation/using_get_it/details_page/controller/character_details_controller.dart';
-import 'package:rickmorty/layers/presentation/using_get_it/injector.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/presentation/using_get_it/details_page/controller/character_details_controller.dart';
+import 'package:watchdice/layers/presentation/using_get_it/injector.dart';
 
 // -----------------------------------------------------------------------------
 // Page

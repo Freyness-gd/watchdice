@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:rickmorty/layers/data/character_repository_impl.dart';
-import 'package:rickmorty/layers/data/source/local/local_storage.dart';
-import 'package:rickmorty/layers/data/source/network/api.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
-import 'package:rickmorty/layers/presentation/theme.dart';
-import 'package:rickmorty/layers/presentation/using_bloc/app_using_bloc.dart';
-import 'package:rickmorty/layers/presentation/using_cubit/app_using_cubit.dart';
-import 'package:rickmorty/layers/presentation/using_get_it/app_using_get_it.dart';
-import 'package:rickmorty/layers/presentation/using_mobx/app_using_mobx.dart';
-import 'package:rickmorty/layers/presentation/using_provider/app_using_provider.dart';
-import 'package:rickmorty/layers/presentation/using_riverpod/app_using_riverpod.dart';
-import 'package:rickmorty/main.dart';
+import 'package:watchdice/layers/data/character_repository_impl.dart';
+import 'package:watchdice/layers/data/source/local/local_storage.dart';
+import 'package:watchdice/layers/data/source/network/api.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/layers/presentation/theme.dart';
+import 'package:watchdice/layers/presentation/using_bloc/app_using_bloc.dart';
+import 'package:watchdice/layers/presentation/using_cubit/app_using_cubit.dart';
+import 'package:watchdice/layers/presentation/using_get_it/app_using_get_it.dart';
+import 'package:watchdice/layers/presentation/using_mobx/app_using_mobx.dart';
+import 'package:watchdice/layers/presentation/using_provider/app_using_provider.dart';
+import 'package:watchdice/layers/presentation/using_riverpod/app_using_riverpod.dart';
+import 'package:watchdice/main.dart';
 
 class AppRoot extends StatefulWidget {
   const AppRoot({super.key});

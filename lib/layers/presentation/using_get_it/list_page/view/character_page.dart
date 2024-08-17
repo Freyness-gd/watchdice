@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it_mixin/get_it_mixin.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_header.dart';
-import 'package:rickmorty/layers/presentation/shared/character_list_item_loading.dart';
-import 'package:rickmorty/layers/presentation/using_get_it/details_page/view/character_details_page.dart';
-import 'package:rickmorty/layers/presentation/using_get_it/list_page/controller/character_page_controller.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_header.dart';
+import 'package:watchdice/layers/presentation/shared/character_list_item_loading.dart';
+import 'package:watchdice/layers/presentation/using_get_it/details_page/view/character_details_page.dart';
+import 'package:watchdice/layers/presentation/using_get_it/list_page/controller/character_page_controller.dart';
 
 // -----------------------------------------------------------------------------
 // Page

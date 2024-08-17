@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:rickmorty/layers/data/dto/character_dto.dart';
+import 'package:watchdice/layers/data/dto/character_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const cachedCharacterListKey = 'CACHED_CHARACTER_LIST_PAGE';

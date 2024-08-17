@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
-import 'package:rickmorty/layers/domain/usecase/get_all_characters.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
 
 enum CharacterPageStatus { initial, loading, success, failed }
 

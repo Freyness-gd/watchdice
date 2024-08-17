@@ -1,4 +1,4 @@
-import 'package:rickmorty/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
 
 class CharacterDetailsController {
   CharacterDetailsController();

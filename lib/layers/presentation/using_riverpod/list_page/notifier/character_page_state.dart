@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rickmorty/layers/domain/entity/character.dart';
+import 'package:watchdice/layers/domain/entity/character.dart';
 
 enum CharacterPageStatus { initial, loading, success, failure }
 
