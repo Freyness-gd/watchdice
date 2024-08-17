@@ -14,13 +14,23 @@ enum StateManagementOptions {
   mobX,
 }
 
-late SharedPreferences sharedPref;
+late SharedPreferences sharedPref_Temp;
+late final SharedPreferencesAsync sharedPref;
+
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  sharedPref = await SharedPreferences.getInstance();
-  await initializeGetIt();
-  Animate.restartOnHotReload = true;
+  // WidgetsFlutterBinding.ensureInitialized();
+  // sharedPref = await SharedPreferences.getInstance();
+  // await initializeGetIt();
+  // Animate.restartOnHotReload = true;
+  //
+  // runApp(const ProviderScope(child: AppRoot()));
 
-  runApp(const ProviderScope(child: AppRoot()));
+
+  // Loads configuration files, initializes databases and accesses
+  WidgetsFlutterBinding.ensureInitialized();
+  sharedPref = SharedPreferencesAsync();
+  await initializeGetIt();
+
+
 }

@@ -32,5 +32,5 @@ final getAllCharactersProvider = Provider(
 final apiProvider = Provider<Api>((ref) => ApiImpl());
 
 final localStorageProvider = Provider<LocalStorage>(
-  (ref) => LocalStorageImpl(sharedPreferences: sharedPref),
+  (ref) => LocalStorageImpl(sharedPreferences: sharedPref_Temp),
 );

@@ -17,7 +17,7 @@ Future<void> initializeGetIt() async {
   getIt.registerLazySingleton<Api>(() => ApiImpl());
   getIt.registerFactory<LocalStorage>(
     () => LocalStorageImpl(
-      sharedPreferences: sharedPref,
+      sharedPreferences: sharedPref_Temp,
     ),
   );
 

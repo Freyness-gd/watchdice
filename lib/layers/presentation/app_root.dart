@@ -40,7 +40,7 @@ class _AppRootState extends State<AppRoot> {
     // widget tree.
     //
     final api = ApiImpl();
-    final localStorage = LocalStorageImpl(sharedPreferences: sharedPref);
+    final localStorage = LocalStorageImpl(sharedPreferences: sharedPref_Temp);
     final repo = CharacterRepositoryImpl(api: api, localStorage: localStorage);
 
     _getAllCharacters = GetAllCharacters(repository: repo);
