@@ -57,6 +57,7 @@ dependencies:
   stream_transform: ^2.1.0
   mobx: ^2.2.1
   meta: ^1.9.1
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
