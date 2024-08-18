@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:watchdice/layers/presentation/app_root.dart';
 import 'package:watchdice/layers/presentation/using_get_it/injector.dart';
@@ -32,5 +33,8 @@ void main() async {
   sharedPref = SharedPreferencesAsync();
   await initializeGetIt();
 
+  // Load environmental variables
+  await dotenv.load(fileName: '.env');
+  
 
 }
