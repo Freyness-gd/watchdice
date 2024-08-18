@@ -26,12 +26,14 @@ enum Genre {
   thriller,
   war,
   western,
+  other,
 }
 
 enum Type{
   movie,
   series,
   episode,
+  other,
 }
 
 class Movie with EquatableMixin {
