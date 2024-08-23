@@ -29,7 +29,7 @@ enum Genre {
   other,
 }
 
-enum Type{
+enum Type {
   movie,
   series,
   episode,
@@ -41,27 +41,31 @@ class Movie with EquatableMixin {
     this.id,
     this.title,
     this.year,
-    required this.released,
-    required this.runtime,
+    this.released,
+    this.runtime,
     this.genre,
-    required this.plot,
-    required this.poster,
+    this.plot,
+    this.poster,
     this.rating,
     this.type,
   });
 
-  final int? id; // imdbID
+  final String? id; // imdbID
   final String? title;
   final int? year;
-  final DateTime released;
-  final Duration runtime;
+  final DateTime? released;
+  final String? runtime;
   final List<Genre>? genre;
-  final String plot;
-  final String poster;
+  final String? plot;
+  final String? poster;
   final List<Rating>? rating;
   final Type? type;
 
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
+
+  String getTitle() {
+    return title ?? 'None';
+  }
 }
