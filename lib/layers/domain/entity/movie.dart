@@ -66,6 +66,15 @@ class Movie with EquatableMixin {
   List<Object?> get props => throw UnimplementedError();
 
   String getTitle() {
-    return title ?? 'None';
+    return title ?? 'No Title';
   }
+
+  String getPoster() {
+    return poster ?? 'No Poster';
+  }
+
+  String getDescription() {
+    return plot ?? 'No Description';
+  }
+
 }

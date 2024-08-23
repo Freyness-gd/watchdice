@@ -60,7 +60,7 @@ class _AppRoot_testState extends State<AppRoot_test> {
               title: Transform.translate(
                 offset: const Offset(10, 0),
                 child: Text(
-                  'Rick & Morty\n(${getTitleToOption(_currentOption)})',
+                  'Rick & Morty',
                   style: tt.headlineLarge!.copyWith(
                     color: cs.onSurfaceVariant,
                     fontWeight: FontWeight.bold,
@@ -131,25 +131,6 @@ class _AppRoot_testState extends State<AppRoot_test> {
         ),
       ),
     );
-  }
-
-  String getTitleToOption(StateManagementOptions option) {
-    switch (option) {
-      case (StateManagementOptions.bloc):
-        return 'BLOC';
-      case (StateManagementOptions.cubit):
-        return 'Cubit';
-      case (StateManagementOptions.mobX):
-        return 'MobX';
-      case (StateManagementOptions.getIt):
-        return 'GetIT';
-      case (StateManagementOptions.provider):
-        return 'Provider';
-      case (StateManagementOptions.riverpod):
-        return 'RiverPode';
-      default:
-        return '';
-    }
   }
 
   bool get useLightMode {
