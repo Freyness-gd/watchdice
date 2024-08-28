@@ -77,4 +77,25 @@ class Movie with EquatableMixin {
     return plot ?? 'No Description';
   }
 
+  String getYear() {
+    return year.toString();
+  }
+
+  String getRuntime() {
+    return runtime ?? 'No Runtime';
+  }
+
+  String getGenres() {
+    return genre?.map((e) => e.toString().split('.').last).join(', ') ?? 'No Genres';
+  }
+
+  String getRating() {
+    return rating?.map((e) => e.value).join(', ') ?? 'No Rating';
+  }
+
+  String getType() {
+    return type.toString().split('.').last;
+  }
+
+
 }

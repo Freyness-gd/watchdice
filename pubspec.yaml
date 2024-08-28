@@ -123,3 +123,4 @@ flutter:
         - asset: assets/fonts/Exo-Medium.ttf
   assets:
     - assets/fonts/
+    - assets/env/

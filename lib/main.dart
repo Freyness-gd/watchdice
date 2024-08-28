@@ -18,6 +18,7 @@ late SharedPreferences sharedPref_Temp;
 late final SharedPreferencesAsync sharedPref;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // WidgetsFlutterBinding.ensureInitialized();
   sharedPref_Temp = await SharedPreferences.getInstance();
   // await initializeGetIt();
@@ -26,11 +27,10 @@ void main() async {
   // runApp(const ProviderScope(child: AppRoot()));
 
   // Loads configuration files, initializes databases and accesses
-  WidgetsFlutterBinding.ensureInitialized();
   sharedPref = SharedPreferencesAsync();
 
   // Load environmental variables
-  await dotenv.load(fileName: 'env/.env.dev');
+  await dotenv.load(fileName: 'assets/env/.env.dev');
 
   Animate.restartOnHotReload = true;
 

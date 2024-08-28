@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/shared/MovieDetailsPage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
-
 import 'package:watchdice/layers/domain/entity/movie.dart';
-
 
 class AppRoot extends StatefulWidget {
   const AppRoot({super.key});
@@ -17,54 +14,46 @@ class AppRoot extends StatefulWidget {
 }
 
 class _AppRootState extends State<AppRoot> {
-  // TODO: Dependency Injection!!
   late final MovieService service;
   var themeMode = ThemeMode.dark;
-  late final Movie _movie = Movie(title: 'Loading...');
-  final List<Movie> _movies =
-      List<Movie>.generate(3, (_) => Movie(title: 'Loading...'));
-
-  // Current selected index for the BottomNavigationBar
+  final List<Movie> _movies = List<Movie>.generate(3, (_) => Movie(title: 'Loading...'));
   int _selectedIndex = 0;
-
-  // PageController for handling the page view
   late final PageController _pageController;
+  int _menuIndex = 0;
 
-  Movie movie1 = new Movie(
+  // Define your movies manually
+  final Movie movie1 = Movie(
     id: 'tt0110912',
-    title: 'Django Unchained',
+    title: '300',
     year: 1994,
-    released: DateTime(1994, 10, 14),
-    runtime: '154 min',
+    released: DateTime(2011, 10, 14),
+    runtime: '45 min',
     genre: [Genre.crime, Genre.drama],
-    plot:
-        'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire\'s world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth ...',
-    poster: 'https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_SX300.jpg',
+    plot: 'In the ancient battle of Thermopylae, King Leonidas and 300 Spartans fight against Xerxes and his massive Persian army.',
+    poster: 'https://m.media-amazon.com/images/M/MV5BMjc4OTc0ODgwNV5BMl5BanBnXkFtZTcwNjM1ODE0MQ@@._V1_SX300.jpg',
     type: Type.movie,
   );
 
-  Movie movie2 = new Movie(
+  final Movie movie2 = Movie(
     id: 'tt0110912',
     title: 'Star Wars: Episode IV - A New Hope',
     year: 1994,
     released: DateTime(1994, 10, 14),
     runtime: '154 min',
     genre: [Genre.crime, Genre.drama],
-    plot:
-    'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    plot: 'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire\'s world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth ...',
     poster: 'https://m.media-amazon.com/images/M/MV5BOTA5NjhiOTAtZWM0ZC00MWNhLThiMzEtZDFkOTk2OTU1ZDJkXkEyXkFqcGdeQXVyMTA4NDI1NTQx._V1_SX300.jpg',
     type: Type.movie,
   );
 
-  Movie movie3 = new Movie(
+  final Movie movie3 = Movie(
     id: 'tt0110912',
     title: 'American Psycho',
     year: 1994,
     released: DateTime(1994, 10, 14),
     runtime: '154 min',
     genre: [Genre.crime, Genre.drama],
-    plot:
-    'A wealthy New York City investment banking executive, Patrick Bateman, hides his alternate psychopathic ego from his co-workers and friends as he delves deeper into his violent, hedonistic fantasies.',
+    plot: 'A wealthy New York City investment banking executive, Patrick Bateman, hides his alternate psychopathic ego from his co-workers and friends as he delves deeper into his violent, hedonistic fantasies.',
     poster: 'https://m.media-amazon.com/images/M/MV5BZTM2ZGJmNjQtN2UyOS00NjcxLWFjMDktMDE2NzMyNTZlZTBiXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg',
     type: Type.movie,
   );
@@ -72,53 +61,34 @@ class _AppRootState extends State<AppRoot> {
   @override
   void initState() {
     super.initState();
-
-    final api = OmdbApiImpl();
-    final repo = MovieRepositoryImpl(api: api);
-    service = MovieServiceImpl(repository: repo);
-    _fetchRandomMovie();
-
-    // Initialize the PageController
+    service = MovieServiceImpl(repository: MovieRepositoryImpl(api: OmdbApiImpl()));
     _pageController = PageController(initialPage: _selectedIndex);
+    _fetchRandomMovie();
   }
 
   Future<void> _fetchRandomMovie() async {
-    // List<String> _names = ['Django', 'Star Wars', 'American Psycho'];
-
     _movies[0] = movie1;
     _movies[1] = movie2;
     _movies[2] = movie3;
-
-    // for (int i = 0; i < 3; i++) {
-      // Movie movie = await service.random(_names[i]);
-      // _movies[i] = movie;
-      // print('Movie $i: ${movie.getTitle()}');
-      // print('Description $i: ${movie.getDescription()}');
-      // print('Poster: ${movie.getPoster()}');
-    // }
-
     setState(() {});
   }
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _menuIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    const theme = CustomTheme();
-
     return MaterialApp(
       themeMode: themeMode,
-      theme: theme.toThemeData(),
-      darkTheme: theme.toThemeDataDark(),
-      debugShowCheckedModeBanner: false,
+      theme: const CustomTheme().toThemeData(),
+      darkTheme: const CustomTheme().toThemeDataDark(),
+      debugShowCheckedModeBanner: true,
       home: Scaffold(
-        extendBodyBehindAppBar: true,
         body: PageView.builder(
-          scrollDirection: Axis.vertical, // For vertical scrolling like Instagram Reels
+          scrollDirection: Axis.vertical,
           controller: _pageController,
           itemCount: _movies.length,
           itemBuilder: (context, index) {
@@ -130,24 +100,23 @@ class _AppRootState extends State<AppRoot> {
             });
           },
         ),
-
-        // Add a BottomNavigationBar
+        // The BottomNavigationBar is now synced with the PageView
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.movie),
-              label: 'Movie 1',
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.movie),
-              label: 'Movie 2',
+              icon: Icon(Icons.search),
+              label: 'Discover',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.movie),
-              label: 'Movie 3',
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: _menuIndex,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
         ),

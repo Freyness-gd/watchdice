@@ -6,6 +6,7 @@ import 'package:watchdice/layers/data/source/network/api.dart';
 import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/presentation/using_bloc/app_using_bloc.dart';
+import 'package:watchdice/layers/presentation/using_cubit/app_using_cubit.dart';
 import 'package:watchdice/main.dart';
 
 class AppRoot_test extends StatefulWidget {
@@ -107,6 +108,8 @@ class _AppRoot_testState extends State<AppRoot_test> {
     switch (stateManagement) {
       case (StateManagementOptions.bloc):
         return AppUsingBloc(getAllCharacters: _getAllCharacters);
+      case (StateManagementOptions.cubit):
+        return AppUsingCubit(getAllCharacters: _getAllCharacters);
       default:
         return Container();
     }
