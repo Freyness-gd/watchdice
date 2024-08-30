@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
-import 'package:watchdice/layers/presentation/shared/MovieDetailsPage.dart';
+import 'package:watchdice/layers/presentation/view/MovieDetailsPage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/domain/entity/movie.dart';
 

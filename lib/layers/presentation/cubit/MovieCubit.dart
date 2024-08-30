@@ -13,8 +13,10 @@ class MovieCubit extends Cubit<MovieState> {
 
   void fetchMovies() async {
     try {
+      print('fetchMovies called');
       emit(MovieLoading());
-      final movies = movieService.getMovies(); // Adjust the method as per your service
+      final movies = movieService.getMovies();
+      print('Movies fetched: ${movies.length}');
       emit(MovieLoaded(movies));
     } catch (e) {
       emit(MovieError('Failed to load movies'));

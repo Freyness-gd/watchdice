@@ -9,7 +9,7 @@ abstract class MovieService {
 
 class MovieServiceImpl implements MovieService {
   final MovieRepository _repository;
-  final List<Movie> _movies = List<Movie>.generate(3, (_) => Movie(title: 'Loading...'));
+  late final List<Movie> _movies = List<Movie>.generate(3, (_) => Movie(title: 'Loading...'));
 
   // Define your movies manually
   final Movie movie1 = Movie(
@@ -51,7 +51,18 @@ class MovieServiceImpl implements MovieService {
   // TODO: Dependency Injection!!
   MovieServiceImpl({
     required MovieRepository repository,
-  }) : _repository = repository;
+  }) : _repository = repository {
+    initializeMovies();
+  }
+
+  void initializeMovies() {
+    _movies.removeAt(0);
+    _movies.insert(0, movie1);
+    _movies.removeAt(1);
+    _movies.insert(1, movie2);
+    _movies.removeAt(2);
+    _movies.insert(2, movie3);
+  }
 
   @override
   Future<Movie> random(String word) {
