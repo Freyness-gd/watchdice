@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/cubit/MovieCubit.dart';
-import 'package:watchdice/layers/domain/entity/movie.dart';
+import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/shared/MovieDetailsPage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
-
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 
@@ -28,14 +26,6 @@ class _CubitAppState extends State<CubitApp> {
     super.initState();
     service = MovieServiceImpl(repository: MovieRepositoryImpl(api: OmdbApiImpl()));
     _pageController = PageController(initialPage: _selectedIndex);
-    // Initialize Cubit and fetch initial movies
-    context.read<MovieCubit>().fetchMovies();
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _menuIndex = index;
-    });
   }
 
   @override
@@ -89,7 +79,9 @@ class _CubitAppState extends State<CubitApp> {
             ],
             currentIndex: _menuIndex,
             selectedItemColor: Colors.amber[800],
-            onTap: _onItemTapped,
+            onTap: (index) => setState(() {
+              _menuIndex = index;
+            }),
           ),
         ),
       ),
