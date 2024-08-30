@@ -5,7 +5,6 @@ import 'package:watchdice/layers/data/source/local/local_storage.dart';
 import 'package:watchdice/layers/data/source/network/api.dart';
 import 'package:watchdice/layers/domain/usecase/get_all_characters.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
-import 'package:watchdice/layers/presentation/using_bloc/app_using_bloc.dart';
 import 'package:watchdice/layers/presentation/using_cubit/app_using_cubit.dart';
 import 'package:watchdice/main.dart';
 
@@ -106,8 +105,6 @@ class _AppRoot_testState extends State<AppRoot_test> {
 
   Widget _getAppUsing({required StateManagementOptions stateManagement}) {
     switch (stateManagement) {
-      case (StateManagementOptions.bloc):
-        return AppUsingBloc(getAllCharacters: _getAllCharacters);
       case (StateManagementOptions.cubit):
         return AppUsingCubit(getAllCharacters: _getAllCharacters);
       default:
