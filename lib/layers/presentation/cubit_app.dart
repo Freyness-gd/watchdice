@@ -59,7 +59,19 @@ class _CubitAppState extends State<CubitApp> {
                 preferredSize: Size.fromHeight(60),
                 child: TopBar(),
               ),
-              body: _selectedPage(),
+              body: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return SlideTransition(
+                    position: animation.drive(Tween<Offset>(
+                      begin: const Offset(0.0, 1.0),
+                      end: Offset.zero,
+                    )),
+                    child: child,
+                  );
+                },
+                child: _selectedPage(),
+              ),
               bottomNavigationBar: BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
