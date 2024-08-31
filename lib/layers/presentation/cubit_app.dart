@@ -92,6 +92,7 @@ class _CubitAppState extends State<CubitApp> {
                 ],
                 currentIndex: _menuIndex,
                 selectedItemColor: const Color.fromRGBO(134, 97, 193, 1.0),
+                unselectedItemColor: const Color.fromRGBO(75, 82, 103, 0.75),
                 onTap: (index) => setState(() {
                   _menuIndex = index;
                 }),
@@ -143,10 +144,10 @@ class TopBar extends StatelessWidget {
           margin: const EdgeInsets.all(10),
           child: IconButton(
             icon: const Icon(Icons.search),
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all<Color>(
-                const Color.fromRGBO(75, 82, 103, 0.16),
-              ), // Background color
+            style: ButtonStyle(// Background color
+              foregroundColor: WidgetStateProperty.all<Color>(
+                const Color.fromRGBO(134, 97, 193, 1),
+              ), // Icon color
               shape: WidgetStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),

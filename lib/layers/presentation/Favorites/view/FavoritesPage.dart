@@ -73,7 +73,7 @@ class MovieMiniCard extends StatelessWidget {
         print('Movie clicked: ${movie.getTitle()}');
       },
       splashFactory: InkRipple.splashFactory,
-      splashColor: const Color.fromRGBO(134, 97, 193, 1),
+      splashColor: const Color.fromRGBO(190, 151, 198, 1),
       borderRadius: BorderRadius.circular(10),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.25,
