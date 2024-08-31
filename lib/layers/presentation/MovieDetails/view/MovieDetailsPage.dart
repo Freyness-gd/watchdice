@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/entity/movie.dart';
 import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
 
+import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
+
 class MovieDetailsPage extends StatelessWidget {
   const MovieDetailsPage({super.key});
 
@@ -15,12 +17,39 @@ class MovieDetailsPage extends StatelessWidget {
 
     if (movie == null) return const Center(child: Text('No movie found'));
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        return MovieCard(movie: movie);
+      },
+    );
+  }
+}
+
+class MovieCard extends StatelessWidget {
+  const MovieCard({
+    super.key,
+    required this.movie,
+  });
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
       children: [
-        const SizedBox(height: 18),
-        MoviePoster(movie: movie),
-        Expanded(child: MovieTitle(movie: movie)),
+        InkWell(
+          onTap: () {
+            print('Tapped card!');
+          },
+          splashFactory: InkRipple.splashFactory,
+          child: Column(
+            children: [
+              MoviePoster(movie: movie),
+              Expanded(child: MovieTitle(movie: movie)),
+            ],
+          ),
+        ),
+        const FavoriteIcon(),
       ],
     );
   }
@@ -71,50 +100,74 @@ class MoviePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.all(16),
-          height: MediaQuery.of(context).size.height * 0.7,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 7,
-                blurRadius: 10,
-                offset: const Offset(0, 5),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(25),
-            image: DecorationImage(
-              image: NetworkImage(movie.getPoster()),
-              fit: BoxFit.fill,
-              alignment: Alignment.center,
-            ),
+    return Container(
+      margin: const EdgeInsets.all(16),
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 7,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
           ),
+        ],
+        borderRadius: BorderRadius.circular(25),
+        image: DecorationImage(
+          image: NetworkImage(movie.getPoster()),
+          fit: BoxFit.fill,
+          alignment: Alignment.center,
         ),
-        Container(
-          margin: const EdgeInsets.only(
-            top: 30,
-            right: 30,
-          ),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
+      ),
+    );
+  }
+}
+
+class FavoriteIcon extends StatelessWidget {
+  const FavoriteIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final movieCubit = context.read<MovieCubit>();
+    final movie = (movieCubit.state as MovieLoaded).movie;
+
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 30,
+        right: 30,
+      ),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: BlocBuilder<FavoritesCubit, FavoritesState>(
+          builder: (context, state) {
+            final isFavorite = context.read<FavoritesCubit>().isFavorite(movie);
+            double opacity = isFavorite ? 1.0 : 0.5;
+
+            return Container(
+              decoration:  BoxDecoration(
+                color: Color.fromRGBO(190, 151, 198, opacity),
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: const Icon(Icons.favorite),
+                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                color: isFavorite
+                    ? Colors.redAccent
+                    : const Color.fromRGBO(46, 41, 78, 1),
                 onPressed: () {
-                  print('Favorite');
+                  final favoritesCubit = context.read<FavoritesCubit>();
+                  if (isFavorite) {
+                    favoritesCubit.removeMovieFromFavorites(movie);
+                  } else {
+                    favoritesCubit.addMovieToFavorites(movie);
+                  }
                 },
               ),
-            ),
-          ),
+            );
+          },
         ),
-      ],
+      ),
     );
   }
 }

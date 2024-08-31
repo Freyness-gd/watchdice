@@ -62,8 +62,7 @@ class Movie with EquatableMixin {
   final Type? type;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, title, year, released, runtime, genre, plot, poster, rating, type];
 
   String getTitle() {
     return title ?? 'No Title';
