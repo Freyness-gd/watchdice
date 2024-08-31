@@ -92,7 +92,7 @@ class _AppRootState extends State<AppRoot> {
           controller: _pageController,
           itemCount: _movies.length,
           itemBuilder: (context, index) {
-            return MovieDetailsPage(movie: _movies[index]);
+            return const MovieDetailsPage();
           },
           onPageChanged: (index) {
             setState(() {

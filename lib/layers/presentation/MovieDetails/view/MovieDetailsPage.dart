@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/entity/movie.dart';
-
 import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
-
-import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   const MovieDetailsPage({super.key});
@@ -12,40 +9,19 @@ class MovieDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movieCubit = context.read<MovieCubit>();
-    final movie = movieCubit.state is MovieLoaded ? (movieCubit.state as MovieLoaded).movie : null;
+    final movie = movieCubit.state is MovieLoaded
+        ? (movieCubit.state as MovieLoaded).movie
+        : null;
 
     if (movie == null) return const Center(child: Text('No movie found'));
 
-    return BlocBuilder<FavoritesCubit, FavoritesState>(
-      builder: (context, state) {
-        final isFavorite = context.read<FavoritesCubit>().isFavorite(movie);
-
-        return InkWell(
-          onTap: () {
-            print('Tap Tap Tap');
-          },
-          splashFactory: InkRipple.splashFactory,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 18),
-              MoviePoster(movie: movie),
-              Expanded(child: MovieTitle(movie: movie)),
-              IconButton(
-                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-                onPressed: () {
-                  final favoritesCubit = context.read<FavoritesCubit>();
-                  if (isFavorite) {
-                    favoritesCubit.removeMovieFromFavorites(movie);
-                  } else {
-                    favoritesCubit.addMovieToFavorites(movie);
-                  }
-                },
-              ),
-            ],
-          ),
-        );
-      },
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 18),
+        MoviePoster(movie: movie),
+        Expanded(child: MovieTitle(movie: movie)),
+      ],
     );
   }
 }
@@ -95,25 +71,50 @@ class MoviePoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            spreadRadius: 7,
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+    return Stack(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(16),
+          height: MediaQuery.of(context).size.height * 0.7,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 7,
+                blurRadius: 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(25),
+            image: DecorationImage(
+              image: NetworkImage(movie.getPoster()),
+              fit: BoxFit.fill,
+              alignment: Alignment.center,
+            ),
           ),
-        ],
-        borderRadius: BorderRadius.circular(25),
-        image: DecorationImage(
-          image: NetworkImage(movie.getPoster()),
-          fit: BoxFit.fill,
-          alignment: Alignment.center,
         ),
-      ),
+        Container(
+          margin: const EdgeInsets.only(
+            top: 30,
+            right: 30,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.favorite),
+                onPressed: () {
+                  print('Favorite');
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
