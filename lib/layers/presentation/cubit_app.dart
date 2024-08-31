@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/MovieScroll/cubit/MovieScrollCubit.dart';
-import 'package:watchdice/layers/presentation/pages/FavoritesPage.dart';
+import 'package:watchdice/layers/presentation/Favorites/view/FavoritesPage.dart';
 import 'package:watchdice/layers/presentation/pages/ProfilePage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
