@@ -17,29 +17,10 @@ class MovieDetailsPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(
-            height: 20,
+            height: 18,
           ),
           // Top section with the poster image
-          Container(
-            margin: const EdgeInsets.all(16),
-            height: MediaQuery.of(context).size.height * 0.7,
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.5),
-                  spreadRadius: 7,
-                  blurRadius: 10,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(25),
-              image: DecorationImage(
-                image: NetworkImage(movie.getPoster()),
-                fit: BoxFit.fill,
-                alignment: Alignment.center,
-              ),
-            ),
-          ),
+          MoviePoster(movie: movie),
           // Bottom section with text information
           Expanded(
             child: SingleChildScrollView(
@@ -53,7 +34,7 @@ class MovieDetailsPage extends StatelessWidget {
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'Poppins',
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
@@ -66,6 +47,39 @@ class MovieDetailsPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class MoviePoster extends StatelessWidget {
+  const MoviePoster({
+    super.key,
+    required this.movie,
+  });
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 7,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(25),
+        image: DecorationImage(
+          image: NetworkImage(movie.getPoster()),
+          fit: BoxFit.fill,
+          alignment: Alignment.center,
+        ),
       ),
     );
   }
