@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watchdice/layers/presentation/cubit/MovieCubit.dart';
+import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
-import 'package:watchdice/layers/presentation/view/MovieDetailsPage.dart';
+import 'package:watchdice/layers/presentation/MovieDetails/view/MovieDetailsPage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
