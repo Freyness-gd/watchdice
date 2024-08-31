@@ -91,11 +91,11 @@ class CustomTheme extends ThemeExtension<CustomTheme> {
   }
 
   ThemeData _base(final ColorScheme colorScheme) {
-    final primaryTextTheme = GoogleFonts.exoTextTheme();
-    final secondaryTextTheme = GoogleFonts.neuchaTextTheme();
+    final primaryTextTheme = GoogleFonts.poppinsTextTheme();
+    final secondaryTextTheme = GoogleFonts.poppinsTextTheme();
     final textTheme = primaryTextTheme.copyWith(
-      displaySmall: secondaryTextTheme.displaySmall,
-      displayMedium: secondaryTextTheme.displayMedium,
+      displaySmall: secondaryTextTheme.displayMedium,
+      displayMedium: secondaryTextTheme.displayLarge,
       displayLarge: secondaryTextTheme.displayLarge,
       headlineSmall: secondaryTextTheme.headlineSmall,
       headlineMedium: secondaryTextTheme.headlineMedium,

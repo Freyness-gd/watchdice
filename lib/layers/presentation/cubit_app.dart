@@ -24,7 +24,8 @@ class _CubitAppState extends State<CubitApp> {
   @override
   void initState() {
     super.initState();
-    service = MovieServiceImpl(repository: MovieRepositoryImpl(api: OmdbApiImpl()));
+    service =
+        MovieServiceImpl(repository: MovieRepositoryImpl(api: OmdbApiImpl()));
     _pageController = PageController(initialPage: _selectedIndex);
   }
 
@@ -40,19 +41,47 @@ class _CubitAppState extends State<CubitApp> {
           return MaterialApp(
             themeMode: themeMode,
             theme: const CustomTheme().toThemeData(),
-            darkTheme: const CustomTheme().toThemeDataDark(),
+            darkTheme: const CustomTheme().toThemeData(),
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              appBar: AppBar(
-                title: const Text('WatchDice'),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: () {
-                      context.read<MovieCubit>().fetchMovies();
-                    },
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(60),
+                child: AppBar(
+                  title: const Text(
+                    'WatchDice',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ],
+                  backgroundColor: Colors.white,
+                  centerTitle: true,
+                  elevation: 0.0,
+                  actions: [
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child: IconButton(
+                        icon: const Icon(Icons.refresh),
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(
+                            const Color.fromRGBO(75, 82, 103, 0.16),
+                          ), // Background color
+                          shape: WidgetStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            // Adjust the border radius to control the button shape
+                          ),
+                        ),
+                        onPressed: () {
+                          context.read<MovieCubit>().fetchMovies();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
               body: BlocBuilder<MovieCubit, MovieState>(
                 builder: (context, state) {
@@ -62,7 +91,7 @@ class _CubitAppState extends State<CubitApp> {
                       child: Text(
                         'Testing MovieLoading',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     );
@@ -72,7 +101,7 @@ class _CubitAppState extends State<CubitApp> {
                         child: Text(
                           'Testing MovieLoaded isEmpty',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                       );
@@ -95,7 +124,7 @@ class _CubitAppState extends State<CubitApp> {
                       child: Text(
                         'Testing MovieError',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     );
@@ -104,7 +133,7 @@ class _CubitAppState extends State<CubitApp> {
                       child: Text(
                         'Testing Default Empty stateeee',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     );
