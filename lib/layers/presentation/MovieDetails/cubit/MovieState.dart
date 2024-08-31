@@ -8,9 +8,9 @@ class MovieInitial extends MovieState {}
 class MovieLoading extends MovieState {}
 
 class MovieLoaded extends MovieState {
-  final List<Movie> movies;
+  final Movie movie;
 
-  MovieLoaded(this.movies);
+  MovieLoaded(this.movie);
 }
 
 class MovieError extends MovieState {

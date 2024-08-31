@@ -8,6 +8,8 @@ import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 
+import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
+
 class CubitApp extends StatefulWidget {
   const CubitApp({super.key});
 
@@ -32,15 +34,21 @@ class _CubitAppState extends State<CubitApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        final cubit = MovieScrollCubit(movieService: service);
-        cubit.fetchMovies();
-        return cubit;
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<MovieScrollCubit>(
+          create: (context) {
+            final cubit = MovieScrollCubit(movieService: service);
+            cubit.fetchMovies();
+            return cubit;
+          },
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (context) => FavoritesCubit(),
+        ),
+      ],
       child: Builder(
         builder: (context) {
-
           return MaterialApp(
             themeMode: themeMode,
             theme: const CustomTheme().toThemeData(),
@@ -62,7 +70,7 @@ class _CubitAppState extends State<CubitApp> {
                     if (state.movies.isEmpty) {
                       return const Center(
                         child: Text(
-                          'Testing MovieLoaded isEmpty',
+                          'No movies available',
                           style: TextStyle(
                             color: Colors.black,
                           ),
@@ -75,8 +83,10 @@ class _CubitAppState extends State<CubitApp> {
                         controller: _pageController,
                         itemCount: state.movies.length,
                         itemBuilder: (context, index) {
-                          return MovieDetailsPage(
-                            movie: state.movies[index],
+                          return BlocProvider(
+                            create: (context) =>
+                                MovieCubit(movie: state.movies[index]),
+                            child: const MovieDetailsPage(),
                           );
                         },
                         onPageChanged: (index) {
@@ -89,7 +99,7 @@ class _CubitAppState extends State<CubitApp> {
                   } else if (state is MovieScrollError) {
                     return const Center(
                       child: Text(
-                        'Testing MovieError',
+                        'Error loading movies',
                         style: TextStyle(
                           color: Colors.redAccent,
                         ),

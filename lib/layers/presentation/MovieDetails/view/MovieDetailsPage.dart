@@ -1,32 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/entity/movie.dart';
 
-class MovieDetailsPage extends StatelessWidget {
-  final Movie movie;
+import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
 
-  const MovieDetailsPage({required this.movie, super.key});
+import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
+
+class MovieDetailsPage extends StatelessWidget {
+  const MovieDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print('Tap Tap Tap');
+    final movieCubit = context.read<MovieCubit>();
+    final movie = movieCubit.state is MovieLoaded ? (movieCubit.state as MovieLoaded).movie : null;
+
+    if (movie == null) return const Center(child: Text('No movie found'));
+
+    return BlocBuilder<FavoritesCubit, FavoritesState>(
+      builder: (context, state) {
+        final isFavorite = context.read<FavoritesCubit>().isFavorite(movie);
+
+        return InkWell(
+          onTap: () {
+            print('Tap Tap Tap');
+          },
+          splashFactory: InkRipple.splashFactory,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 18),
+              MoviePoster(movie: movie),
+              Expanded(child: MovieTitle(movie: movie)),
+              IconButton(
+                icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+                onPressed: () {
+                  final favoritesCubit = context.read<FavoritesCubit>();
+                  if (isFavorite) {
+                    favoritesCubit.removeMovieFromFavorites(movie);
+                  } else {
+                    favoritesCubit.addMovieToFavorites(movie);
+                  }
+                },
+              ),
+            ],
+          ),
+        );
       },
-      splashFactory: InkRipple.splashFactory,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(
-            height: 18,
-          ),
-          // Top section with the poster image
-          MoviePoster(movie: movie),
-          // Bottom section with text information
-          Expanded(
-            child: MovieTitle(movie: movie),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -5,5 +5,7 @@ import 'package:watchdice/layers/domain/entity/movie.dart';
 part 'MovieState.dart';
 
 class MovieCubit extends Cubit<MovieState> {
-  MovieCubit(super.initialState);
+  late final Movie movie;
+
+  MovieCubit({required this.movie}) : super(MovieLoaded(movie));
 }
