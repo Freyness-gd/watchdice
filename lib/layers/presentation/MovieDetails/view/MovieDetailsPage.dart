@@ -41,7 +41,9 @@ class MovieCard extends StatelessWidget {
           onTap: () {
             print('Tapped card!');
           },
+          borderRadius: BorderRadius.circular(25),
           splashFactory: InkRipple.splashFactory,
+          splashColor: const Color.fromRGBO(134, 97, 193, 0.35),
           child: Column(
             children: [
               MoviePoster(movie: movie),
@@ -153,7 +155,7 @@ class FavoriteIcon extends StatelessWidget {
               child: IconButton(
                 icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
                 color: isFavorite
-                    ? Colors.redAccent
+                    ? const Color.fromRGBO(134, 97, 193, 1)
                     : const Color.fromRGBO(46, 41, 78, 1),
                 onPressed: () {
                   final favoritesCubit = context.read<FavoritesCubit>();
