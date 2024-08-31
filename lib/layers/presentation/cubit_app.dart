@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
-import 'package:watchdice/layers/presentation/MovieDetails/view/MovieDetailsPage.dart';
 import 'package:watchdice/layers/presentation/MovieScroll/cubit/MovieScrollCubit.dart';
+import 'package:watchdice/layers/presentation/pages/FavoritesPage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 
 import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
 
-import 'package:watchdice/layers/presentation/DiscoverPage.dart';
+import 'package:watchdice/layers/presentation/pages/DiscoverPage.dart';
 
 class CubitApp extends StatefulWidget {
   const CubitApp({super.key});
@@ -92,7 +91,7 @@ class _CubitAppState extends State<CubitApp> {
   Widget _selectedPage() {
     switch (_menuIndex) {
       case 0:
-        return Container();
+        return const FavoritesPage();
       case 1:
         return const DiscoverPage();
       case 2:
