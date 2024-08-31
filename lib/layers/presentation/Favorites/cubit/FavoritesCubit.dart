@@ -15,6 +15,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     }
   }
 
+  void loadFavorites() {
+    if (_favoriteMovies.isEmpty) {
+      emit(FavoritesEmpty());
+    } else {
+      emit(FavoritesLoaded(favoritesMovies: _favoriteMovies));
+    }
+  }
+
   void removeMovieFromFavorites(Movie movie) {
     if (_favoriteMovies.contains(movie)) {
       _favoriteMovies.remove(movie);

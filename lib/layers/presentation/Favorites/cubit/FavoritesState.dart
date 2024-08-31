@@ -15,3 +15,11 @@ class FavoritesError extends FavoritesState {
 
   FavoritesError(this.message);
 }
+
+class FavoritesEmpty extends FavoritesState {}
+
+class FavoritesLoaded extends FavoritesState {
+  final List<Movie> favoritesMovies;
+
+  FavoritesLoaded({required this.favoritesMovies});
+}
