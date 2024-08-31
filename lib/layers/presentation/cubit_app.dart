@@ -10,6 +10,8 @@ import 'package:watchdice/layers/data/source/network/omdb_api.dart';
 
 import 'package:watchdice/layers/presentation/Favorites/cubit/FavoritesCubit.dart';
 
+import 'package:watchdice/layers/presentation/DiscoverPage.dart';
+
 class CubitApp extends StatefulWidget {
   const CubitApp({super.key});
 
@@ -20,7 +22,6 @@ class CubitApp extends StatefulWidget {
 class _CubitAppState extends State<CubitApp> {
   late final MovieService service;
   var themeMode = ThemeMode.dark;
-  int _selectedIndex = 0;
   late final PageController _pageController;
   int _menuIndex = 1;
 
@@ -29,7 +30,7 @@ class _CubitAppState extends State<CubitApp> {
     super.initState();
     service =
         MovieServiceImpl(repository: MovieRepositoryImpl(api: OmdbApiImpl()));
-    _pageController = PageController(initialPage: _selectedIndex);
+    _pageController = PageController();
   }
 
   @override
@@ -59,57 +60,7 @@ class _CubitAppState extends State<CubitApp> {
                 preferredSize: Size.fromHeight(60),
                 child: TopBar(),
               ),
-              body: BlocBuilder<MovieScrollCubit, MovieScrollState>(
-                builder: (context, state) {
-                  print('Current State: $state');
-                  if (state is MovieScrollLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (state is MovieScrollLoaded) {
-                    if (state.movies.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No movies available',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      );
-                    }
-                    return Center(
-                      child: PageView.builder(
-                        scrollDirection: Axis.vertical,
-                        controller: _pageController,
-                        itemCount: state.movies.length,
-                        itemBuilder: (context, index) {
-                          return BlocProvider(
-                            create: (context) =>
-                                MovieCubit(movie: state.movies[index]),
-                            child: const MovieDetailsPage(),
-                          );
-                        },
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                      ),
-                    );
-                  } else if (state is MovieScrollError) {
-                    return const Center(
-                      child: Text(
-                        'Error loading movies',
-                        style: TextStyle(
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
+              body: _selectedPage(),
               bottomNavigationBar: BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
@@ -136,6 +87,19 @@ class _CubitAppState extends State<CubitApp> {
         },
       ),
     );
+  }
+
+  Widget _selectedPage() {
+    switch (_menuIndex) {
+      case 0:
+        return Container();
+      case 1:
+        return const DiscoverPage();
+      case 2:
+        return Container();
+      default:
+        return const DiscoverPage();
+    }
   }
 }
 
