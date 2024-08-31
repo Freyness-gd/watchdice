@@ -23,27 +23,41 @@ class MovieDetailsPage extends StatelessWidget {
           MoviePoster(movie: movie),
           // Bottom section with text information
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                      movie.getTitle(),
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Poppins',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
+            child: MovieTitle(movie: movie),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MovieTitle extends StatelessWidget {
+  const MovieTitle({
+    super.key,
+    required this.movie,
+  });
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              movie.getTitle(),
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'Poppins',
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
