@@ -71,17 +71,30 @@ class _CubitAppState extends State<CubitApp> {
                         ),
                       );
                     }
-                    return PageView.builder(
-                      scrollDirection: Axis.vertical,
-                      controller: _pageController,
-                      itemCount: state.movies.length,
-                      itemBuilder: (context, index) {
-                        return MovieDetailsPage(movie: state.movies[index]);
-                      },
-                      onPageChanged: (index) {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
+                    return LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Center(
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: constraints.maxHeight -
+                                  kBottomNavigationBarHeight,
+                            ),
+                            child: PageView.builder(
+                              scrollDirection: Axis.vertical,
+                              controller: _pageController,
+                              itemCount: state.movies.length,
+                              itemBuilder: (context, index) {
+                                return MovieDetailsPage(
+                                    movie: state.movies[index]);
+                              },
+                              onPageChanged: (index) {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+                              },
+                            ),
+                          ),
+                        );
                       },
                     );
                   } else if (state is MovieError) {
