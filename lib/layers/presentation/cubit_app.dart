@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/MovieScroll/cubit/MovieScrollCubit.dart';
 import 'package:watchdice/layers/presentation/pages/FavoritesPage.dart';
+import 'package:watchdice/layers/presentation/pages/ProfilePage.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
@@ -107,7 +108,7 @@ class _CubitAppState extends State<CubitApp> {
       case 1:
         return const DiscoverPage();
       case 2:
-        return Container();
+        return const ProfilePage();
       default:
         return const DiscoverPage();
     }
