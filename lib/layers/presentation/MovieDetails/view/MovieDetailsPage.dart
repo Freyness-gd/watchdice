@@ -4,7 +4,7 @@ import 'package:watchdice/layers/domain/entity/movie.dart';
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
 
-  const MovieDetailsPage({required this.movie, Key? key}) : super(key: key);
+  const MovieDetailsPage({required this.movie, super.key});
 
   @override
   Widget build(BuildContext context) {

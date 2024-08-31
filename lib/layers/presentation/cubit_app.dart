@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/presentation/MovieDetails/cubit/MovieCubit.dart';
 import 'package:watchdice/layers/domain/usecase/movie_service.dart';
 import 'package:watchdice/layers/presentation/MovieDetails/view/MovieDetailsPage.dart';
+import 'package:watchdice/layers/presentation/MovieScroll/cubit/MovieScrollCubit.dart';
 import 'package:watchdice/layers/presentation/theme.dart';
 import 'package:watchdice/layers/data/repository/movie_repository.dart';
 import 'package:watchdice/layers/data/source/network/omdb_api.dart';
@@ -32,11 +33,13 @@ class _CubitAppState extends State<CubitApp> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MovieCubit(movieService: service),
+      create: (context) {
+        final cubit = MovieScrollCubit(movieService: service);
+        cubit.fetchMovies();
+        return cubit;
+      },
       child: Builder(
         builder: (context) {
-          // Call fetchMovies after the provider is established
-          context.read<MovieCubit>().fetchMovies();
 
           return MaterialApp(
             themeMode: themeMode,
@@ -48,19 +51,14 @@ class _CubitAppState extends State<CubitApp> {
                 preferredSize: Size.fromHeight(60),
                 child: TopBar(),
               ),
-              body: BlocBuilder<MovieCubit, MovieState>(
+              body: BlocBuilder<MovieScrollCubit, MovieScrollState>(
                 builder: (context, state) {
                   print('Current State: $state');
-                  if (state is MovieLoading) {
+                  if (state is MovieScrollLoading) {
                     return const Center(
-                      child: Text(
-                        'Testing MovieLoading',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
+                      child: CircularProgressIndicator(),
                     );
-                  } else if (state is MovieLoaded) {
+                  } else if (state is MovieScrollLoaded) {
                     if (state.movies.isEmpty) {
                       return const Center(
                         child: Text(
@@ -88,24 +86,17 @@ class _CubitAppState extends State<CubitApp> {
                         },
                       ),
                     );
-                  } else if (state is MovieError) {
+                  } else if (state is MovieScrollError) {
                     return const Center(
                       child: Text(
                         'Testing MovieError',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.redAccent,
                         ),
                       ),
                     );
                   } else {
-                    return const Center(
-                      child: Text(
-                        'Testing Default Empty stateeee',
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    );
+                    return Container();
                   }
                 },
               ),
@@ -176,7 +167,7 @@ class TopBar extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              context.read<MovieCubit>().fetchMovies();
+              // context.read<MovieScrollCubit>().fetchMovies();
             },
           ),
         ),
