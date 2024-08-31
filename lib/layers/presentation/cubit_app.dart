@@ -19,7 +19,7 @@ class _CubitAppState extends State<CubitApp> {
   var themeMode = ThemeMode.dark;
   int _selectedIndex = 0;
   late final PageController _pageController;
-  int _menuIndex = 0;
+  int _menuIndex = 1;
 
   @override
   void initState() {
@@ -44,44 +44,9 @@ class _CubitAppState extends State<CubitApp> {
             darkTheme: const CustomTheme().toThemeData(),
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(60),
-                child: AppBar(
-                  title: const Text(
-                    'WatchDice',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Poppins',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  backgroundColor: Colors.white,
-                  centerTitle: true,
-                  elevation: 0.0,
-                  actions: [
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child: IconButton(
-                        icon: const Icon(Icons.refresh),
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all<Color>(
-                            const Color.fromRGBO(75, 82, 103, 0.16),
-                          ), // Background color
-                          shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            // Adjust the border radius to control the button shape
-                          ),
-                        ),
-                        onPressed: () {
-                          context.read<MovieCubit>().fetchMovies();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+              appBar: const PreferredSize(
+                preferredSize: Size.fromHeight(60),
+                child: TopBar(),
               ),
               body: BlocBuilder<MovieCubit, MovieState>(
                 builder: (context, state) {
@@ -156,7 +121,7 @@ class _CubitAppState extends State<CubitApp> {
                   ),
                 ],
                 currentIndex: _menuIndex,
-                selectedItemColor: Colors.amber[800],
+                selectedItemColor: const Color.fromRGBO(134, 97, 193, 1.0),
                 onTap: (index) => setState(() {
                   _menuIndex = index;
                 }),
@@ -165,6 +130,53 @@ class _CubitAppState extends State<CubitApp> {
           );
         },
       ),
+    );
+  }
+}
+
+class TopBar extends StatelessWidget {
+  const TopBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: const Text(
+        'WatchDice',
+        style: TextStyle(
+          color: Colors.black,
+          fontFamily: 'Poppins',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      elevation: 0.0,
+      actions: [
+        Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.all(10),
+          child: IconButton(
+            icon: const Icon(Icons.search),
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all<Color>(
+                const Color.fromRGBO(75, 82, 103, 0.16),
+              ), // Background color
+              shape: WidgetStateProperty.all<OutlinedBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                // Adjust the border radius to control the button shape
+              ),
+            ),
+            onPressed: () {
+              context.read<MovieCubit>().fetchMovies();
+            },
+          ),
+        ),
+      ],
     );
   }
 }
