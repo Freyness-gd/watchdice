@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchdice/layers/domain/entity/movie.dart';
@@ -25,7 +27,7 @@ class MovieDetailsPage extends StatelessWidget {
   }
 }
 
-class MovieCard extends StatelessWidget {
+class MovieCard extends StatefulWidget {
   const MovieCard({
     super.key,
     required this.movie,
@@ -34,20 +36,63 @@ class MovieCard extends StatelessWidget {
   final Movie movie;
 
   @override
+  State<MovieCard> createState() => _MovieCardState();
+}
+
+class _MovieCardState extends State<MovieCard> {
+  bool _isDetails = false;
+
+  Widget _turnCard(Movie movie) {
+    print('_turnCard: $_isDetails');
+    return _isDetails
+        ? MovieDetailsCard(movie: movie)
+        : MoviePoster(movie: movie);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         InkWell(
           onTap: () {
-            print('Tapped card!');
+            setState(() {
+              _isDetails = !_isDetails;
+            });
           },
           borderRadius: BorderRadius.circular(25),
           splashFactory: InkRipple.splashFactory,
-          splashColor: const Color.fromRGBO(134, 97, 193, 0.35),
+          splashColor: const Color.fromRGBO(134, 97, 193, 0.25),
           child: Column(
             children: [
-              MoviePoster(movie: movie),
-              Expanded(child: MovieTitle(movie: movie)),
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 350),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  final rotate = Tween(begin: pi, end: 0.0).animate(animation);
+
+                  return AnimatedBuilder(
+                    animation: rotate,
+                    child: child,
+                    builder: (context, child) {
+                      final isUnder = (ValueKey(_isDetails) != child!.key);
+                      var tilt = (animation.value - 0.5).abs() - 0.5;
+                      tilt *= isUnder ? -0.003 : 0.003;
+                      final value =
+                          isUnder ? min(rotate.value, pi / 2) : rotate.value;
+                      return Transform(
+                        transform: Matrix4.rotationY(value)
+                          ..setEntry(3, 0, tilt),
+                        alignment: Alignment.center,
+                        child: child,
+                      );
+                    },
+                  );
+                },
+                child: _turnCard(widget.movie),
+              ),
+              Expanded(
+                child:
+                    _isDetails ? Container() : MovieTitle(movie: widget.movie),
+              ),
             ],
           ),
         ),
@@ -125,6 +170,35 @@ class MoviePoster extends StatelessWidget {
   }
 }
 
+class MovieDetailsCard extends StatelessWidget {
+  const MovieDetailsCard({
+    super.key,
+    required this.movie,
+  });
+
+  final Movie movie;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            spreadRadius: 7,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Center(child: Information(movie: movie)),
+    );
+  }
+}
+
 class FavoriteIcon extends StatelessWidget {
   const FavoriteIcon({
     super.key,
@@ -148,7 +222,7 @@ class FavoriteIcon extends StatelessWidget {
             double opacity = isFavorite ? 1.0 : 0.5;
 
             return Container(
-              decoration:  BoxDecoration(
+              decoration: BoxDecoration(
                 color: Color.fromRGBO(190, 151, 198, opacity),
                 shape: BoxShape.circle,
               ),
@@ -185,84 +259,72 @@ class Information extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
-      child: Row(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
         children: [
+          const SizedBox(height: 10),
           Text(
-            movie.getDescription().length > 200
-                ? '${movie.getDescription().substring(0, 200)}...'
-                : movie.getDescription(),
+            movie.getTitle(),
             style: const TextStyle(
               color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            movie.getDescription(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 16,
+              overflow: TextOverflow.ellipsis,
+            ),
+            maxLines: 20,
+            textAlign: TextAlign.justify,
+          ),
+          const SizedBox(height: 10),
+          Text(
+            'Runtime: ${movie.getRuntime()}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
               fontSize: 16,
             ),
-            textAlign: TextAlign.start,
           ),
-          Column(
-            children: [
-              Text(
-                'Year: ${movie.getYear()}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Runtime: ${movie.getRuntime()}',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+          const SizedBox(height: 10),
+          Text(
+            'Year: ${movie.getYear()}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 16,
+            ),
           ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-          Column(
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    'Genres: ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    movie.getGenres(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  const Text(
-                    'Type: ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    movie.getType(),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          const SizedBox(height: 10),
+          Text(
+            'Genre: ${movie.getGenres()}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 16,
+            ),
           ),
+          const SizedBox(height: 10),
+          Text(
+            'Rating: ${movie.getRating()}',
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: 'Poppins',
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );
