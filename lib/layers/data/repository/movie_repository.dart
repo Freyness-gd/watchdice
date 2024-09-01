@@ -3,6 +3,8 @@ import 'package:watchdice/layers/domain/entity/movie.dart';
 
 abstract class MovieRepository {
   Future<Movie> getRandomMovie({String word = 'star wars'});
+
+  Future<List<Movie>> searchMovies(String query);
 }
 
 class MovieRepositoryImpl implements MovieRepository {
@@ -16,6 +18,11 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Movie> getRandomMovie({String word = 'star wars'}) async {
     final fetchedMovie = await _api.loadRandom(word);
     return fetchedMovie;
+  }
+
+  @override
+  Future<List<Movie>> searchMovies(String query) async {
+      return await _api.searchMovies(query);
   }
 
 

@@ -118,23 +118,60 @@ class _CubitAppState extends State<CubitApp> {
   }
 }
 
-class TopBar extends StatelessWidget {
+class TopBar extends StatefulWidget {
   const TopBar({
     super.key,
   });
 
   @override
+  State<TopBar> createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  bool _isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _toggleSearch() {
+    setState(() {
+      _isSearching = !_isSearching;
+    });
+  }
+
+  void _handleSearch(String query) {
+    print('Searching for: $query');
+    context.read<MovieScrollCubit>().searchMovies(query);
+    _toggleSearch();
+    _searchController.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'WatchDice',
-        style: TextStyle(
-          color: Colors.black,
-          fontFamily: 'Poppins',
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title: _isSearching
+          ? TextField(
+              controller: _searchController,
+              autofocus: true,
+              decoration: const InputDecoration(
+                hintText: 'Search...',
+                border: InputBorder.none,
+              ),
+              onSubmitted: _handleSearch,
+            )
+          : const Text(
+              'WatchDice',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Poppins',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
       backgroundColor: Colors.white,
       centerTitle: true,
       elevation: 0.0,
@@ -143,8 +180,11 @@ class TopBar extends StatelessWidget {
           alignment: Alignment.center,
           margin: const EdgeInsets.all(10),
           child: IconButton(
-            icon: const Icon(Icons.search),
-            style: ButtonStyle(// Background color
+            icon: _isSearching
+                ? const Icon(Icons.input)
+                : const Icon(Icons.search),
+            style: ButtonStyle(
+              // Background color
               foregroundColor: WidgetStateProperty.all<Color>(
                 const Color.fromRGBO(134, 97, 193, 1),
               ), // Icon color
@@ -156,7 +196,7 @@ class TopBar extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              // context.read<MovieScrollCubit>().fetchMovies();
+              _toggleSearch();
             },
           ),
         ),

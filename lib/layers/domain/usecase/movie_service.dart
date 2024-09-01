@@ -5,6 +5,8 @@ abstract class MovieService {
   Future<Movie> random(String word);
 
   List<Movie> getMovies();
+
+  Future<List<Movie>> search(String query);
 }
 
 class MovieServiceImpl implements MovieService {
@@ -72,5 +74,10 @@ class MovieServiceImpl implements MovieService {
   @override
   List<Movie> getMovies() {
     return _movies;
+  }
+
+  @override
+  Future<List<Movie>> search(String query) {
+    return _repository.searchMovies(query);
   }
 }

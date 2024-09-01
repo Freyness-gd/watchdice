@@ -22,4 +22,15 @@ class MovieScrollCubit extends Cubit<MovieScrollState> {
     }
   }
 
+  void searchMovies(String query) async {
+    try {
+      print('searchMovies called');
+      emit(MovieScrollLoading());
+      final movies = await movieService.search(query);
+      emit(MovieScrollLoaded(movies));
+    } catch (e) {
+      emit(MovieScrollError('Search faile for $query'));
+    }
+  }
+
 }

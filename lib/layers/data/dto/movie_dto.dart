@@ -63,7 +63,7 @@ class MovieDto extends Movie {
         runtime: json['Runtime'],
         genre: _stringToGenreList(json['Genre'].toString()),
         plot: json['Plot'],
-        poster: json['Poster'],
+        poster: json['Poster'] == 'N/A' ? 'https://via.assets.so/img.jpg?w=500&h=1000&tc=#8661C1&bg=#cecece&t=Placeholder' : json['Poster'],
         rating: _stringToRatingList(json['Ratings']),
         type: _stringToType(json['Type']),
       );
